@@ -1,0 +1,40 @@
+{
+
+    // Prints File header with:
+    // relative path of the file, 
+    // the date of creation of the file and 
+    // the author 
+    "File Header": {
+	"prefix": "header",
+	"description": "Output a file header with the file path, date and author",
+	"body": [
+		"% ==============================================================",
+		"% File     : $RELATIVE_FILEPATH",
+		"% Date     : $CURRENT_DATE $CURRENT_MONTH_NAME_SHORT $CURRENT_YEAR",
+		"% Creator  : Marco Peressutti",
+		"% ==============================================================",
+		"$0"
+	]
+},
+
+    // Prints a double separation line with "Summary" at the center and pushes it to the end of the page
+"Summary of chapter":{
+	"prefix": "summary",
+	"description": "Output a chapter summary by filling vertically and adding command",
+	"body":[
+		"\\vfill",
+		"\\textbetweendoublerules{Summary}",
+		"$0"
+	]
+},
+    // Just a dumb snippets that intiate a itemize/enumerate environment
+"Itemize/Enumerate":{
+	"prefix": "env",
+	"description":"Create either an itemize or enumerate environment",
+	"body":[
+		"\\begin{${1|itemize,enumerate|}}",
+		"\t\\item $0",
+		"\\end{${1|itemize,enumerate|}}"
+	]
+}
+}

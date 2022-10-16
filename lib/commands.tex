@@ -1,0 +1,213 @@
+% ==============================================================
+% File     : lib/commands.tex
+% Date     : 16 Oct 2022
+% Creator  : Marco Peressutti
+% ==============================================================
+
+\defbibheading{bibempty}{}
+% ==============================================================
+% NEW-COMMANDS:
+% ==============================================================
+
+% \M         : matrix with square    delimiters/brackets
+% \B         : matrix with curly     delimiters/brackets
+% \und       : underline math expression in math mode
+% \pd        : (first  order) partial derivative
+% \td        : (first  order) total   derivative
+% \pdd       : (second order) partial derivative 
+% \tdd       : (second order) total   derivative
+% \omissis   : three dots surrounded by square brackets
+% \pexp      : pre exponent (#1) of symbol (#2) where \pexp{#1}{#2} 
+% \ret       : left arrow symbol as exponent 
+% \smalltodo : [internal] DO NOT USE 
+% \side      : size notes (yellow line to the side of the page with text)
+% \pside     : phantom side (used in environment where the \side causes compilation errors)
+% \ceil      : ceil  brackets
+% \floor     : floor brackets 
+% \degr      : degree symbol (just an exponent with circle in front of the number)
+
+\newcommand{\M}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\und}[1]{\underline{#1}}
+\newcommand{\B}[1]{\begin{Bmatrix}#1\end{Bmatrix}}
+\newcommand{\pd}[2]{\cfrac{\partial#1}{\partial#2}}
+\newcommand{\td}[2]{\cfrac{d#1}{d#2}}
+\newcommand{\pdd}[2]{\cfrac{\partial^2#1}{\partial#2^2}}
+\newcommand{\tdd}[2]{\cfrac{d^2#1}{d#2^2}}
+\newcommand{\omissis}{[\textellipsis\unkern]}
+\newcommand{\pexp}[2]{\prescript{#1}{}{#2}{}{}}
+\newcommand{\ret}[1]{{#1}^{\leftarrow}}
+\newcommand{\smalltodo}[2][]{\todo[caption={#2}, #1, backgroundcolor=white!20!white, bordercolor=white]{\begin{spacing}{0.5}\texttt{#2}\end{spacing}}}
+\newcommand{\side}[1]{\smalltodo[size=\footnotesize]{#1}\textbf{#1}}
+\newcommand{\pside}[1]{\smalltodo[size=\footnotesize]{#1}}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\degr}[1]{^{\circ\!#1}}
+
+% ==============================================================
+% RE-NEW-COMMANDS:
+% ==============================================================
+
+% prettier \theta symbol
+\renewcommand{\theta}{\vartheta}
+% prettier \epsilon symbol
+\renewcommand{\epsilon}{\varepsilon}
+% I have no clue what \arraystretch does prolly used internally in itemize/enumerate environment
+\renewcommand{\arraystretch}{1.3}
+
+% ==============================================================
+% DECLARES:
+% ==============================================================
+
+% \abs      : absolute value operator/delimiters (i.e. |  expression  |)
+% \norma    : norm           operator/delimiters (i.e. || expression ||)
+% \minimize : "minimize" that allows to write things just under the symbol 
+% \argmin   : "argmin" that allows to write things just under the symbol
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norma}{\lVert}{\rVert}
+\DeclareMathOperator*{\minimize}{minimize}
+\DeclareMathOperator*{\argmin}{argmin}
+
+
+% ==============================================================
+% MISC:
+% ==============================================================
+
+% more compact representtation of itemize
+\setitemize{noitemsep,topsep=10pt,parsep=0pt,partopsep=0pt}
+
+% colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{myb}{RGB}{45, 111, 177}
+\definecolor{myr}{RGB}{199, 68, 64}
+
+
+% Code snippets style
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\makeatletter
+\newcommand\incircbin
+{%
+  \mathpalette\@incircbin
+}
+\newcommand\@incircbin[2]
+{%
+  \mathbin%
+  {%
+    \ooalign{\hidewidth$#1#2$\hidewidth\crcr$#1\bigcirc$}%
+  }%
+}
+\newcommand{\ooplus}{\incircbin{+}}     % A circle with a plus  inside
+\newcommand{\oominus}{\incircbin{-}}    % A circle with a minus inside
+\newcommand{\oocirca}{\incircbin{\sim}} % A circle with a tilde inside
+\makeatother
+
+\newcommand{\cmark}{\ding{51}} % literally a  tick
+\newcommand{\xmark}{\ding{55}} % literally an X
+
+% equal with symbol on top
+\newcommand\equal[1]{\stackrel{\mathclap{\footnotesize\mbox{#1}}}{=}}
+
+% text without double lined line
+\newcommand{\textbetweendoublerules}[2][.4pt]{%
+  \par\addvspace{\topsep}
+  \noindent\makebox[\textwidth]{%
+    \sbox0{\quad#2\quad}%
+    \dimen0=.5\dimexpr\ht0+#1\relax
+    \dimen2=-.5\dimexpr\ht0-#1\relax
+    \dimen4=.5\dimexpr\textwidth-\wd0\relax
+    \setbox2=\vbox to \ht0{%
+      \vss
+      \hrule width \dimen4 height #1
+      \kern 4\dimexpr#1\relax
+      \hrule width \dimen4 height #1
+      \vss
+    }%
+    \copy2 \box0 \box2
+  }\par\nopagebreak\addvspace{\topsep}%
+}
+
+
+% red box used for examples
+\makeatletter
+\newtcbtheorem{example}{Example}{enhanced,
+	breakable,
+	colback=white,
+	colframe=myr!80!black,
+	attach boxed title to top left={yshift*=-\tcboxedtitleheight},
+	fonttitle=\bfseries,
+	title={#2},
+	boxed title size=title,
+	boxed title style={%
+			sharp corners,
+			rounded corners=northwest,
+			colback=tcbcolframe,
+			boxrule=0pt,
+		},
+	underlay boxed title={%
+			\path[fill=tcbcolframe] (title.south west)--(title.south east)
+			to[out=0, in=180] ([xshift=5mm]title.east)--
+			(title.center-|frame.east)
+			[rounded corners=\kvtcb@arc] |-
+			(frame.north) -| cycle;
+		},
+	#1
+}{def}
+\makeatother
+
+% blue box used for definitions
+\makeatletter
+\newtcbtheorem{definition}{Definition}{enhanced,
+	breakable,
+	colback=white,
+	colframe=myb!80!black,
+	attach boxed title to top left={yshift*=-\tcboxedtitleheight},
+	fonttitle=\bfseries,
+	title={#2},
+	boxed title size=title,
+	boxed title style={%
+			sharp corners,
+			rounded corners=northwest,
+			colback=tcbcolframe,
+			boxrule=0pt,
+		},
+	underlay boxed title={%
+			\path[fill=tcbcolframe] (title.south west)--(title.south east)
+			to[out=0, in=180] ([xshift=5mm]title.east)--
+			(title.center-|frame.east)examples
+		},
+	#1
+}{def}
+\makeatother
+
+% command to use the definition box \define{Name}{Verbose definition of Name}
+\newcommand{\define}[2]{\begin{definition}{#1}{}#2\end{definition}}
+% command to use the definition box \define{(optional) Example title}{Verbose description of Example}
+\newcommand{\eg}[2]{\begin{example}{#1}{}#2\end{example}}
+
+
+% used to make table of contents for each part
+\titleclass{\part}{top}
+\titleformat{\part}
+  {\centering\normalfont\Huge\bfseries}{}{0pt}{}
+\setcounter{secnumdepth}{5}

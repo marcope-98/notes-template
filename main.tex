@@ -1,0 +1,65 @@
+% ==============================================================
+% File     : main.tex
+% Date     : 16 Oct 2022
+% Creator  : Marco Peressutti
+% ==============================================================
+
+\documentclass[a4paper, 10pt, oneside]{book}
+\usepackage[utf8]{inputenc}
+ 
+
+\input{lib/includes} % usepackages
+\input{lib/acronyms} % acromyms
+\input{lib/commands} % newcommands
+
+% title page
+\title{Course Code - Long Course Name\\ that does not fit in one line}
+\author{Marco Peressutti\\230403\\marco.peressutti@studenti.unitn.it}
+\date{\today}
+
+% chapters
+\includeonly{
+    chapters/chapter1
+}
+
+% bibliography resources
+\addbibresource{bib/bibliografia.bib}
+% path to images
+\graphicspath{{images/}}
+% load acronyms
+\makeglossaries
+
+\begin{document}
+
+    \selectlanguage{english}
+    
+    \maketitle 
+    \printglossary[type=\acronymtype] 
+    
+    %% frontmatter
+    \frontmatter
+    \setcounter{page}{1}
+    \cleardoublepage
+
+    \fancypagestyle{plain}{}
+    \renewcommand{\chaptermark}[1]{ \markboth{#1}{}} 
+    \tableofcontents
+        \markboth{\contentsname}{}      
+    \cleardoublepage
+    
+    %% mainmatter
+    \mainmatter    
+    
+    
+    \part{Title of part 1}
+    \startcontents[parts]
+    \printcontents[parts]{}{-1}{\setcounter{tocdepth}{5}}
+    \include{chapters/chapter1}
+    \stopcontents[parts]
+     
+    \clearpage
+    \chapter*{Bibliography}
+    \addcontentsline{toc}{chapter}{{Bibliography}}
+    \printbibliography[heading=bibempty]
+
+\end{document}

@@ -194,7 +194,9 @@
 	underlay boxed title={%
 			\path[fill=tcbcolframe] (title.south west)--(title.south east)
 			to[out=0, in=180] ([xshift=5mm]title.east)--
-			(title.center-|frame.east)examples
+			(title.center-|frame.east)
+			[rounded corners=\kvtcb@arc] |-
+			(frame.north) -| cycle;
 		},
 	#1
 }{def}
